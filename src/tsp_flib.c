@@ -17,7 +17,7 @@ void insertion_sort(int *A,int length){
 				A[j] = temp ;
 			}
 		}
-	}	
+	}
 }
 
 double random0to1(){
@@ -32,7 +32,7 @@ int random_upn_wo0(int n ){
 	temp = rand() % n ;
 	if(temp > 0)
 		return temp ;
-	else 
+	else
 		return random_upn_wo0(n) ;
 }
 
@@ -80,7 +80,7 @@ void crossover(int *A,int *B ,int length){
 			}
 		}
 		if(cond == 0){auxA[counta++] = B[countb++] ;}
-		
+
 	}
 
 	counta = cross_2 ;
@@ -132,4 +132,27 @@ double fitness(int *A,int **dist ,int length){
 	}
 	sum += dist[A[length - 1] - 1][A[0] - 1] ;
 	return 1 / sum ;
+}
+void initialize(int **a,int size,int length){
+	int i , j ;
+	for (i = 0; i < size; i++) {
+		for (j = 0; j < length; j++) {
+			a[i][j] = j + 1 ;
+		}
+	}
+	for (i = 0; i < size; i++) {
+		yates_shuffle(a[i],length);
+	}
+}
+void yates_shuffle(int *mat,int length){
+	int i , k ;
+	for (i = 0; i < length - 1; i++) {
+		k = random_upn_wo0(length - 1 - i );
+		swap(&mat[i],&mat[k]);
+	}
+}
+void swap(int *a,int *b) {
+	*a = *a ^ *b ;
+	*b = *a ^ *b ;
+	*a = *a ^ *b ;
 }
